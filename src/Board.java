@@ -19,24 +19,19 @@ import java.awt.Image;
 
 public class Board extends JPanel implements Runnable, ActionListener {
 	long current_time;
-	private int board_width = 400;
-	private int board_height = 300;
+	private int board_width = 800;
+	private int board_height = 600;
 	private ArrayList<Circle> circles;
 	private ArrayList<Anchor> anchors;
 	
-	private Image ground;
+	private Ground ground;
 
-	Dimension board_size = new Dimension( board_width, board_height );
+	private int current_zoom = 4;
+
+	Dimension window_size = new Dimension( board_width, board_height );
 	Thread animator;
 
 	private Mouse_Adapter mouse_adapter;
-	
-//	public Board( Color color ) {
-//		setBackground( color );
-//		setOpaque( true );
-//		setBorder(BorderFactory.createLineBorder(Color.black));
-//		setPreferredSize( getMinimumSize( ) );
-//	}
 	
 	public void actionPerformed(ActionEvent e) { }
 		
@@ -46,18 +41,14 @@ public class Board extends JPanel implements Runnable, ActionListener {
 		setOpaque( true );
 		setBorder(BorderFactory.createLineBorder(Color.black));
 		setPreferredSize( getMinimumSize( ) );
-		
-		ImageIcon ground_icon = new ImageIcon( "src/image/test_ground.jpg" );
-		this.ground = ground_icon.getImage( );
-		this.ground = this.ground.getScaledInstance( 2048, 2048, java.awt.Image.SCALE_SMOOTH );
+
+		this.ground = new Ground( 400, 400, "src/image/test_ground.jpg" );
 
 		this.circles = new ArrayList<Circle>( );
 		this.anchors = new ArrayList<Anchor>( );
 		this.mouse_adapter = new Mouse_Adapter( this );
 		
 		addMouseListener( this.mouse_adapter );
-
-
 	}
 
 	@Override
@@ -70,11 +61,11 @@ public class Board extends JPanel implements Runnable, ActionListener {
 	}
 	
 	public Dimension getMinimumSize( ) {
-		return board_size;
+		return window_size;
 	}
 	
 	public Dimension getPreferredSize( ) {
-		return board_size;
+		return window_size;
 	}
 
 	public void addNotify( ) {
@@ -85,7 +76,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
 
 	public void draw_ground( Graphics g ) {
 		Graphics2D g2d = ( Graphics2D ) g;
-		g2d.drawImage( this.ground, -100, -100, this );
+		g2d.drawImage( this.ground.get_image_scaled( this.current_zoom ), -100, -100, this );
 	}
 
 	public void draw_time( Graphics g ) {
@@ -104,8 +95,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
 	public void draw_anchors( Graphics g ) {
 
 		for( int i = 0;  i < this.anchors.size( ); i++ ) {
-//		for ( Anchor a : this.anchors ) {
-			this.anchors.get( i ).draw_anchor( g );
+			this.anchors.get( i ).draw_anchor( g, this.current_zoom );
 		}
 
 	}
@@ -118,10 +108,10 @@ public class Board extends JPanel implements Runnable, ActionListener {
 				this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
 	}
 
-	private Integer get_random_int( Integer min, Integer max ) {
-		Integer delta = max - min;		
-		return (int) Math.round( ( Math.random( ) * delta ) );
-	}
+//	private Integer get_random_int( Integer min, Integer max ) {
+//		Integer delta = max - min;		
+//		return (int) Math.round( ( Math.random( ) * delta ) );
+//	}
 
 	public void run( ) {
 		long before_time;
@@ -130,7 +120,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
 		current_time = System.currentTimeMillis( );
 		before_time = System.currentTimeMillis( );
 		
-		Integer mod_val = 200;
+//		Integer mod_val = 200;
 
 		while( true ) {
 			current_time += 1;

@@ -18,7 +18,8 @@ public class Anchor  {
 	private ImageIcon image_icon;
 	private Image image;
 	
-	private int[ ] image_resized_index = { 0, 1, 2, 3, 4, 5 };
+	private int[ ] image_resized_index = { 0, 1, 2, 3, 4 };
+	private float[ ] scale_factors = { (float) 0.25, (float) 0.5, (float) 1.0, (float) 2.0, (float) 4.0 };
 	private Image[ ] image_resized = { null, null, null, null, null, null };
 	
 	private int owner_int;
@@ -38,20 +39,24 @@ public class Anchor  {
 	
 	public Image get_resize( Integer zoom_level ) {
 		
-		if( zoom_level >= 0 && zoom_level - 1 < this.image_resized_index.length ) {
-			if( this.image_resized[ zoom_level ] != null ) {
-				return this.image_resized[ zoom_level ];
-			}
+		// the base anchor size is 4m
+		float base_size = (float) 10.0;
+
+		if( this.image_resized[ zoom_level ] != null ) {
+			return this.image_resized[ zoom_level ];
 		}
-		Image resized_image = this.image.getScaledInstance( 20,  20, java.awt.Image.SCALE_SMOOTH );
+		float _x = base_size * this.scale_factors[ zoom_level ];
+		int size_x = ( int ) _x;
+		int size_y = ( int ) _x;
+		
+		Image resized_image = this.image.getScaledInstance( size_x,  size_y, java.awt.Image.SCALE_SMOOTH );
 		this.image_resized[ zoom_level ] = resized_image;
 		return resized_image;	
 	}
 
-	public void draw_anchor( Graphics g ) {
+	public void draw_anchor( Graphics g, int zoom ) {
 		Graphics2D g2d = ( Graphics2D ) g;
-
-		g2d.drawImage( get_resize( 1 ), this.x, this.y, this.panel );
+		g2d.drawImage( get_resize( zoom ), this.x, this.y, this.panel );
 	}
 	
 

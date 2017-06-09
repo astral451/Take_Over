@@ -19,7 +19,7 @@ public class Take_Over extends JFrame  {
 	public void initUI( ){
 		// TODO Auto-generated method stub
 //		Board board = ;
-		add( new Board( Color.WHITE ) );
+		add( new Board( Color.BLACK ) );
 		setResizable( false );
 		pack( );
 		setTitle( "Take Over" );
