@@ -18,7 +18,6 @@ public class Take_Over extends JFrame  {
 
 	public void initUI( ){
 		// TODO Auto-generated method stub
-//		Board board = ;
 		add( new Board( Color.BLACK ) );
 		setResizable( false );
 		pack( );
@@ -31,10 +30,10 @@ public class Take_Over extends JFrame  {
 	public static void main(String[] args) {
 		EventQueue.invokeLater( new Runnable( ) {
 			
-			public void run( ) {
-				JFrame ex = new Take_Over( );
-				ex.setVisible( true );
-			}
+		public void run( ) {
+			JFrame ex = new Take_Over( );
+			ex.setVisible( true );
+		}
 		} );
 		
 	}

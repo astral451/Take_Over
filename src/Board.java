@@ -32,9 +32,11 @@ public class Board extends JPanel implements Runnable, ActionListener {
 	Thread animator;
 
 	private Mouse_Adapter mouse_adapter;
+	private Key_Adapter key_adapter;
 	
 	public void actionPerformed(ActionEvent e) { }
 		
+
 	public Board(java.awt.Color color ) {
 		// TODO Auto-generated constructor stub
 		setBackground( color );
@@ -47,8 +49,10 @@ public class Board extends JPanel implements Runnable, ActionListener {
 		this.circles = new ArrayList<Circle>( );
 		this.anchors = new ArrayList<Anchor>( );
 		this.mouse_adapter = new Mouse_Adapter( this );
+		this.key_adapter = new Key_Adapter( this );
 		
-		addMouseListener( this.mouse_adapter );
+		this.addMouseListener( this.mouse_adapter );
+		this.addKeyListener( this.key_adapter );
 	}
 
 	@Override
@@ -112,6 +116,21 @@ public class Board extends JPanel implements Runnable, ActionListener {
 //		Integer delta = max - min;		
 //		return (int) Math.round( ( Math.random( ) * delta ) );
 //	}
+
+	public void zoom_in( ) {
+		int _z = this.current_zoom++;
+		_z = Math.max( 0, _z );
+		_z = Math.min( 4, _z );
+		this.current_zoom = _z;
+	}
+
+	public void zoom_out( ) {
+		//
+		int _z = this.current_zoom--;
+		_z = Math.max( 0, _z );
+		_z = Math.min( 4, _z );
+		this.current_zoom = _z;
+	}
 
 	public void run( ) {
 		long before_time;
