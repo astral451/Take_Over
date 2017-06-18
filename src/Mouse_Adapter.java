@@ -1,19 +1,14 @@
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
-
 
 public class Mouse_Adapter extends MouseAdapter {
 	
 	private Board board;
 
 	public Mouse_Adapter( Board board ) {
-
 		this.board = board;
-
 	}
-
 
 	@Override
 	public void mousePressed( MouseEvent e ) {

@@ -1,14 +1,17 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.lang.Long;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 
-public class Board extends JPanel implements Runnable, ActionListener {
+public class Board extends JPanel implements  Runnable {
 	long current_time;
 	private int board_width = 800;
 	private int board_height = 600;
@@ -32,7 +35,6 @@ public class Board extends JPanel implements Runnable, ActionListener {
 	Thread animator;
 
 	private Mouse_Adapter mouse_adapter;
-	private Key_Adapter key_adapter;
 	
 	public void actionPerformed(ActionEvent e) { }
 		
@@ -48,11 +50,29 @@ public class Board extends JPanel implements Runnable, ActionListener {
 
 		this.circles = new ArrayList<Circle>( );
 		this.anchors = new ArrayList<Anchor>( );
-		this.mouse_adapter = new Mouse_Adapter( this );
-		this.key_adapter = new Key_Adapter( this );
+		mouse_adapter = new Mouse_Adapter( this );
 		
-		this.addMouseListener( this.mouse_adapter );
-		this.addKeyListener( this.key_adapter );
+		addMouseListener( this.mouse_adapter );
+		
+		this.setup_key_bindings( );
+	}
+	
+	public void setup_key_bindings( ) {
+//		this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, 0 ), "zoom_in" );
+		this.getInputMap( ).put( KeyStroke.getKeyStroke( "ADD" ), "zoom_in" );
+		this.getActionMap( ).put( "zoom_in", new AbstractAction( ) {
+			public void actionPerformed( ActionEvent e ) {
+				zoom_in();
+			}
+		});
+
+//		this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, 0 ), "zoom_out" );
+		this.getInputMap( ).put( KeyStroke.getKeyStroke( "SUBTRACT" ), "zoom_out" );
+		this.getActionMap( ).put( "zoom_out", new AbstractAction( ) {
+			public void actionPerformed( ActionEvent e ) {
+				zoom_out();
+			}
+		});
 	}
 
 	@Override
@@ -80,7 +100,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
 
 	public void draw_ground( Graphics g ) {
 		Graphics2D g2d = ( Graphics2D ) g;
-		g2d.drawImage( this.ground.get_image_scaled( this.current_zoom ), -100, -100, this );
+		g2d.drawImage( this.ground.get_image_scaled( this.current_zoom ), 0, 0, this );
 	}
 
 	public void draw_time( Graphics g ) {
@@ -118,7 +138,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
 //	}
 
 	public void zoom_in( ) {
-		int _z = this.current_zoom++;
+		int _z = this.current_zoom + 1;
 		_z = Math.max( 0, _z );
 		_z = Math.min( 4, _z );
 		this.current_zoom = _z;
@@ -126,7 +146,7 @@ public class Board extends JPanel implements Runnable, ActionListener {
 
 	public void zoom_out( ) {
 		//
-		int _z = this.current_zoom--;
+		int _z = this.current_zoom - 1;
 		_z = Math.max( 0, _z );
 		_z = Math.min( 4, _z );
 		this.current_zoom = _z;
