@@ -58,16 +58,14 @@ public class Board extends JPanel implements  Runnable {
 	}
 	
 	public void setup_key_bindings( ) {
-//		this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, 0 ), "zoom_in" );
-		this.getInputMap( ).put( KeyStroke.getKeyStroke( "ADD" ), "zoom_in" );
+		this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, 0 ), "zoom_in" );
 		this.getActionMap( ).put( "zoom_in", new AbstractAction( ) {
 			public void actionPerformed( ActionEvent e ) {
 				zoom_in();
 			}
 		});
 
-//		this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, 0 ), "zoom_out" );
-		this.getInputMap( ).put( KeyStroke.getKeyStroke( "SUBTRACT" ), "zoom_out" );
+		this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, 0 ), "zoom_out" );
 		this.getActionMap( ).put( "zoom_out", new AbstractAction( ) {
 			public void actionPerformed( ActionEvent e ) {
 				zoom_out();
