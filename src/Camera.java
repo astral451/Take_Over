@@ -16,6 +16,7 @@ public class Camera extends JPanel implements  Runnable {
 	private Mouse_Adapter mouse_adapter;
 	private Board board;
 
+	int current_zoom = 0;
 	float pos_x;
 	float pos_y;
 
@@ -38,26 +39,40 @@ public class Camera extends JPanel implements  Runnable {
         this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, 0 ), "zoom_in" );
         this.getActionMap( ).put( "zoom_in", new AbstractAction( ) {
 			public void actionPerformed( ActionEvent e ) {
-//                    zoom_in();
+				zoom_in();
             }
         });
 
         this.getInputMap( ).put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, 0 ), "zoom_out" );
         this.getActionMap( ).put( "zoom_out", new AbstractAction( ) {
             public void actionPerformed( ActionEvent e ) {
-//                        zoom_out();
+				zoom_out();
             }
         });
-
     }
+
+    public void zoom_in( ) {
+		int _z = this.current_zoom + 1;
+		_z = Math.max( 0, _z );
+		_z = Math.min( 4, _z );
+		this.current_zoom = _z;
+	}
+
+	public void zoom_out( ) {
+		int _z = this.current_zoom - 1;
+		_z = Math.max( 0, _z );
+		_z = Math.min( 4, _z );
+		this.current_zoom = _z;
+	}
 
 	@Override
 	public void paintComponent( Graphics g ) {
 		super.paintComponent( g );
-		board.draw_ground( g );
+		board.draw_board( g, current_zoom, this.pos_x, this.pos_y );
 		draw_time( g );
-		board.draw_circles( g );
-		board.draw_anchors( g );
+//		board.draw_ground( g, current_zoom );
+//		board.draw_circles( g );
+//		board.draw_anchors( g );
 	}
 
     public void draw_time( Graphics g ) {

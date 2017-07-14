@@ -66,10 +66,16 @@ public class Board  {
 //		});
 //	}
 
+    public void draw_board( Graphics g, int current_zoom, float pos_x, float pos_y ) {
+		draw_ground( g, current_zoom );
+		draw_circles( g );
+		draw_anchors( g );
+	}
 
-	public void draw_ground( Graphics g ) {
+
+	public void draw_ground( Graphics g, int current_zoom ) {
 		Graphics2D g2d = ( Graphics2D ) g;
-		g2d.drawImage( this.ground.get_image_scaled( this.current_zoom ), 0, 0, this.top_panel );
+		g2d.drawImage( this.ground.get_image_scaled( current_zoom ), 0, 0, this.top_panel );
 	}
 
 
@@ -81,42 +87,25 @@ public class Board  {
 		}
 	}
 
+
 	public void draw_anchors( Graphics g ) {
 
 		for( int i = 0;  i < this.anchors.size( ); i++ ) {
 			this.anchors.get( i ).draw_anchor( g, this.current_zoom );
 		}
-
 	}
-	
+
+
 	public void add_anchor( int anchor_pos_x, int anchor_pos_y ) {
 		this.anchors.add( new Anchor( anchor_pos_x, anchor_pos_y, this.top_panel ) );
 	}
+
 
 	public void add_circle( int circle_pos_x, int circle_pos_y ) {
     	this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
 	}
 
-	//test new commit
-//	private Integer get_random_int( Integer min, Integer max ) {
-//		Integer delta = max - min;		
-//		return (int) Math.round( ( Math.random( ) * delta ) );
-//	}
 
-	public void zoom_in( ) {
-		int _z = this.current_zoom + 1;
-		_z = Math.max( 0, _z );
-		_z = Math.min( 4, _z );
-		this.current_zoom = _z;
-	}
-
-	public void zoom_out( ) {
-		//
-		int _z = this.current_zoom - 1;
-		_z = Math.max( 0, _z );
-		_z = Math.min( 4, _z );
-		this.current_zoom = _z;
-	}
 
 
 	public void draw_circles( ) {
