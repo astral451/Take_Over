@@ -97,6 +97,7 @@ public class Board  {
     	this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
 	}
 
+	//test new commit
 //	private Integer get_random_int( Integer min, Integer max ) {
 //		Integer delta = max - min;		
 //		return (int) Math.round( ( Math.random( ) * delta ) );
