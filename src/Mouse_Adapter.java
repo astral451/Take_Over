@@ -4,10 +4,12 @@ import java.awt.event.MouseEvent;
 
 public class Mouse_Adapter extends MouseAdapter {
 	
-	private Board board;
+	Board board;
+	Camera camera;
 
-	public Mouse_Adapter( Board board ) {
+	public Mouse_Adapter( Camera camera, Board board ) {
 		this.board = board;
+		this.camera = camera;
 	}
 
 	@Override
