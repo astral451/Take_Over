@@ -1,5 +1,12 @@
+/*
+ *
+ * The Anchor object goes here
+ *
+ */
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -8,10 +15,8 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Anchor  {
+public class Anchor extends Object {
 
-	private int x;
-	private int y;
 	private JPanel panel;
 	private String base_icon_name = "src\\image\\VG_Circle.png";
 	// create icons maybe for each other color
@@ -26,10 +31,11 @@ public class Anchor  {
 	private ArrayList<Anchor> anchors;
 
 	public Anchor( int pos_x, int pos_y, JPanel panel ) {
+		// call to the Object
+		super( pos_x, pos_y );
+
 		this.panel = panel;
 		setup_icon( );
-		this.x = pos_x;
-		this.y = pos_y;
 	}
 	
 	public void setup_icon( ) {
@@ -56,7 +62,8 @@ public class Anchor  {
 
 	public void draw_anchor( Graphics g, int zoom ) {
 		Graphics2D g2d = ( Graphics2D ) g;
-		g2d.drawImage( get_resize( zoom ), this.x, this.y, this.panel );
+		Point point = this.get_position( );
+		g2d.drawImage( get_resize( zoom ), point.x, point.y, this.panel );
 	}
 	
 

@@ -36,46 +36,36 @@ public class Board  {
 	Thread animator;
 
 
-	public void actionPerformed(ActionEvent e) { }
+	public void actionPerformed( ActionEvent e ) { }
 		
 
 	public Board( java.awt.Color color, JPanel top_panel ) {
 
-		this.ground = new Ground( 400, 400, "src/image/test_ground.jpg" );
+		this.ground = new Ground( 400, 400, "src\\image\\test_ground.jpg" );
 		this.top_panel = top_panel;
 
 		this.circles = new ArrayList<Circle>( );
 		this.anchors = new ArrayList<Anchor>( );
 		
-//		this.setup_key_bindings( );
 	}
 	
-//	public void setup_key_bindings( ) {
-//		this.getinputmap( ).put( keystroke.getkeystroke( keyevent.vk_add, 0 ), "zoom_in" );
-//		this.getactionmap( ).put( "zoom_in", new abstractaction( ) {
-//			public void actionperformed( actionevent e ) {
-//				zoom_in();
-//			}
-//		});
-//
-//		this.getinputmap( ).put( keystroke.getkeystroke( keyevent.vk_subtract, 0 ), "zoom_out" );
-//		this.getactionmap( ).put( "zoom_out", new abstractaction( ) {
-//			public void actionperformed( actionevent e ) {
-//				zoom_out();
-//			}
-//		});
-//	}
 
-    public void draw_board( Graphics g, int current_zoom, float pos_x, float pos_y ) {
-		draw_ground( g, current_zoom );
-		draw_circles( g );
-		draw_anchors( g );
+    public void draw_board( Graphics g, int current_zoom, int pos_x, int pos_y ) {
+		draw_ground( g, current_zoom, pos_x, pos_y );
+//		draw_circles( g );
+//		draw_anchors( g );
 	}
 
 
-	public void draw_ground( Graphics g, int current_zoom ) {
+	public void draw_ground( Graphics g, int current_zoom, int camera_pos_x, int camera_pos_y ) {
 		Graphics2D g2d = ( Graphics2D ) g;
-		g2d.drawImage( this.ground.get_image_scaled( current_zoom ), 0, 0, this.top_panel );
+		g2d.drawImage(
+				this.ground.get_image( ),
+				camera_pos_x, // pos x
+				camera_pos_y, // pos y
+				400 + current_zoom,
+				400 + current_zoom,
+				this.top_panel );
 	}
 
 
@@ -89,7 +79,6 @@ public class Board  {
 
 
 	public void draw_anchors( Graphics g ) {
-
 		for( int i = 0;  i < this.anchors.size( ); i++ ) {
 			this.anchors.get( i ).draw_anchor( g, this.current_zoom );
 		}
