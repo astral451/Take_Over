@@ -28,12 +28,14 @@ public class Board  {
 	private ArrayList<Anchor> anchors;
 	
 	private Ground ground;
+	private int ground_x;
+	private int ground_y;
 	private JPanel top_panel;
 
 	private int current_zoom = 4;
 
 //	Dimension window_size = new Dimension( board_width, board_height );
-	Thread animator;
+//	Thread animator;
 
 
 	public void actionPerformed( ActionEvent e ) { }
@@ -41,7 +43,9 @@ public class Board  {
 
 	public Board( java.awt.Color color, JPanel top_panel ) {
 
-		this.ground = new Ground( 400, 400, "src\\image\\test_ground.jpg" );
+		this.ground_x = 1024;
+		this.ground_y = 1024;
+		this.ground = new Ground( this.ground_x, this.ground_y, "src\\image\\test_ground.jpg" );
 		this.top_panel = top_panel;
 
 		this.circles = new ArrayList<Circle>( );
@@ -50,21 +54,24 @@ public class Board  {
 	}
 	
 
-    public void draw_board( Graphics g, int current_zoom, int pos_x, int pos_y ) {
-		draw_ground( g, current_zoom, pos_x, pos_y );
+    public void draw_board( Graphics g, Camera cam ) { // int current_zoom, int pos_x, int pos_y ) {
+		draw_ground( g, cam );//, current_zoom, pos_x, pos_y );
+		draw_anchors( g, cam );
 //		draw_circles( g );
-//		draw_anchors( g );
 	}
 
 
-	public void draw_ground( Graphics g, int current_zoom, int camera_pos_x, int camera_pos_y ) {
+	public void draw_ground( Graphics g, Camera cam ) {// int current_zoom, int camera_pos_x, int camera_pos_y ) {
 		Graphics2D g2d = ( Graphics2D ) g;
+
+		Image_Transform image_trans = cam.transform_image( 0, 0, this.ground_x, this.ground_y );
+
 		g2d.drawImage(
 				this.ground.get_image( ),
-				camera_pos_x, // pos x
-				camera_pos_y, // pos y
-				400 + current_zoom,
-				400 + current_zoom,
+				image_trans.pos_x, // pos x
+				image_trans.pos_y, // pos y
+				image_trans.size_x, //+ current_zoom,
+				image_trans.size_y, // + current_zoom,
 				this.top_panel );
 	}
 
@@ -78,9 +85,9 @@ public class Board  {
 	}
 
 
-	public void draw_anchors( Graphics g ) {
+	public void draw_anchors( Graphics g, Camera cam ) { //int current_zoom, int camera_pos_x, int camera_pos_y ) {
 		for( int i = 0;  i < this.anchors.size( ); i++ ) {
-			this.anchors.get( i ).draw_anchor( g, this.current_zoom );
+			this.anchors.get( i ).draw_anchor( g, cam );
 		}
 	}
 

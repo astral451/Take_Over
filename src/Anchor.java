@@ -19,51 +19,50 @@ public class Anchor extends Object {
 
 	private JPanel panel;
 	private String base_icon_name = "src\\image\\VG_Circle.png";
+
 	// create icons maybe for each other color
 	private ImageIcon image_icon;
 	private Image image;
 	
-	private int[ ] image_resized_index = { 0, 1, 2, 3, 4 };
-	private float[ ] scale_factors = { (float) 0.25, (float) 0.5, (float) 1.0, (float) 2.0, (float) 4.0 };
-	private Image[ ] image_resized = { null, null, null, null, null, null };
-	
-	private int owner_int;
+//	private int owner_int;
 	private ArrayList<Anchor> anchors;
 
 	public Anchor( int pos_x, int pos_y, JPanel panel ) {
 		// call to the Object
 		super( pos_x, pos_y );
+		setup_icon( );
 
 		this.panel = panel;
-		setup_icon( );
 	}
 	
 	public void setup_icon( ) {
 		this.image_icon = new ImageIcon( base_icon_name );
-		this.image = image_icon.getImage( );
+		this.image = image_icon.getImage( ).getScaledInstance( 128, 128, Image.SCALE_SMOOTH );
 	}
 	
-	public Image get_resize( Integer zoom_level ) {
-		
-		// the base anchor size is 4m
-		float base_size = (float) 10.0;
 
-		if( this.image_resized[ zoom_level ] != null ) {
-			return this.image_resized[ zoom_level ];
-		}
-		float _x = base_size * this.scale_factors[ zoom_level ];
-		int size_x = ( int ) _x;
-		int size_y = ( int ) _x;
-		
-		Image resized_image = this.image.getScaledInstance( size_x,  size_y, java.awt.Image.SCALE_SMOOTH );
-		this.image_resized[ zoom_level ] = resized_image;
-		return resized_image;	
-	}
-
-	public void draw_anchor( Graphics g, int zoom ) {
+	public void draw_anchor( Graphics g, Camera cam ) { //int zoom, int offset_x, int offset_y ) {
 		Graphics2D g2d = ( Graphics2D ) g;
 		Point point = this.get_position( );
-		g2d.drawImage( get_resize( zoom ), point.x, point.y, this.panel );
+		int w = this.image.getWidth( this.panel );
+		int h = this.image.getHeight( this.panel );
+
+		Image_Transform im_trans = cam.transform_image( point.x, point.y, w, h );
+
+
+//		w += zoom;
+//		h += zoom;
+		g2d.drawImage(
+				this.image,
+				//point.x + offset_x - ( ( w + zoom ) / 2 ),
+				//point.y + offset_y - ( ( h + zoom ) / 2 ),
+				im_trans.pos_x,
+				im_trans.pos_y,
+				im_trans.size_x,
+				im_trans.size_y,
+				this.panel
+		);
+		g2d.drawString( String.format( "x %d, y %d",  point.x, point.y ), point.x, point.y );
 	}
 	
 

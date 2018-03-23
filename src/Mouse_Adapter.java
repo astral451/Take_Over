@@ -40,11 +40,12 @@ public class Mouse_Adapter extends MouseAdapter  {
 
         if ( e.getButton( ) == MouseEvent.BUTTON3 ) {
 			button3 = true;
-//			this.board.add_anchor( x, y );
 		}
 
 		if( e.getButton( ) == MouseEvent.BUTTON1 ) {
-			this.board.add_circle( x, y );
+	    int mod_x = x - this.camera.pos_x;
+			int mod_y = y - this.camera.pos_y;
+			this.board.add_anchor( mod_x, mod_y );
 		}
 	}
 
