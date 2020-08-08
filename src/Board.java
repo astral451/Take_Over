@@ -39,13 +39,12 @@ public class Board  {
 
 
 	public void actionPerformed( ActionEvent e ) { }
-		
 
 	public Board( java.awt.Color color, JPanel top_panel ) {
 
 		this.ground_x = 1024;
 		this.ground_y = 1024;
-		this.ground = new Ground( this.ground_x, this.ground_y, "src\\image\\test_ground.jpg" );
+		this.ground = new Ground( this.ground_x, this.ground_y, "image\\test_grid.jpg" );
 		this.top_panel = top_panel;
 
 		this.circles = new ArrayList<Circle>( );
@@ -73,6 +72,7 @@ public class Board  {
 				image_trans.size_x, //+ current_zoom,
 				image_trans.size_y, // + current_zoom,
 				this.top_panel );
+
 	}
 
 
@@ -98,7 +98,7 @@ public class Board  {
 
 
 	public void add_circle( int circle_pos_x, int circle_pos_y ) {
-    	this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
+    		this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
 	}
 
 

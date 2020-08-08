@@ -15,7 +15,7 @@ public class Camera extends JPanel implements  Runnable {
 	private Mouse_Adapter mouse_adapter;
 	private Board board;
 
-	int current_zoom = 0;
+	float current_zoom = 1.0f ;
 	int initial_pos_x = 0;
 	int initial_pos_y = 0;
 	int pos_x;
@@ -44,7 +44,18 @@ public class Camera extends JPanel implements  Runnable {
 
 		pos_x = pos_x - this.pos_x;
 		pos_y = pos_y - this.pos_y;
-		Image_Transform im_trans = new Image_Transform( pos_x, pos_y, size_x, size_y );
+		float scaled_pos_x = pos_x * (float)pos_x;
+		float scaled_pos_y = pos_y * (float)pos_y;
+		float scaled_size_x = this.current_zoom * (float)size_x;
+		float scaled_size_y = this.current_zoom * (float)size_y;
+
+		Image_Transform im_trans = new Image_Transform( 
+			(int)scaled_pos_x, 
+			(int)scaled_pos_y, 
+			(int)scaled_size_x, 
+			(int)scaled_size_y 
+		);
+
 		return im_trans;
 	}
 
@@ -108,10 +119,16 @@ public class Camera extends JPanel implements  Runnable {
 		Graphics2D g2d = ( Graphics2D ) g;
 		Color temp_color = g2d.getColor();
 		g2d.setColor( Color.GRAY );
-		g2d.fill3DRect(5, 0, 90, 20, true ); // (10, 10, 100, 25 );
+		g2d.fill3DRect(5, 0, 200, 20, true ); // (10, 10, 100, 25 );
+		g2d.fill3DRect( 5, 22, 20, 42, true );
 		g2d.setColor( Color.WHITE );
+		
+		// camera Position
 		g2d.drawString( Integer.toString( this.pos_x ), 15, 15 );
 		g2d.drawString( Integer.toString( this.pos_x ), 45, 15 );
+		
+		// Zoom
+		g2d.drawString( Float.toString( this.current_zoom ), 15, 25 );
 		g2d.setColor( temp_color );
 	}
 

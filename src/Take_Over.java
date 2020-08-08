@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 import java.awt.Color;
 import javax.swing.JFrame;
 
+//import Camera.Camera;
+
 
 public class Take_Over extends JFrame  {
 
@@ -27,11 +29,12 @@ public class Take_Over extends JFrame  {
 
 
 	public static void main( String[ ] args ) {
+		// I assume this starts up like a CallAfter
 		EventQueue.invokeLater( new Runnable( ) {
-            public void run( ) {
-                JFrame ex = new Take_Over( );
-                ex.setVisible( true );
-            }
+		    public void run( ) {
+			JFrame ex = new Take_Over( );
+			ex.setVisible( true );
+		    }
         } );
 
     }

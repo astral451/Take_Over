@@ -25,12 +25,12 @@ public class Ground {
 	}
 
 	public Image get_image( ) {
-        File _infile = new File( this.image_path );
+		File _infile = new File( this.image_path );
 		try {
 			ground_image = ImageIO.read( _infile );
 		}
-        catch ( IOException e ) { };
-		return ground_image;
+		catch ( IOException e ) { };
+			return ground_image;
 	}
 
 

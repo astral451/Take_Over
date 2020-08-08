@@ -27,24 +27,25 @@ public class Mouse_Adapter extends MouseAdapter  {
 	@Override
 	public void mouseWheelMoved( MouseWheelEvent e ) {
 		if ( e.getWheelRotation( ) < 0 ) {
-			this.camera.current_zoom -= 10;
+			this.camera.current_zoom -= 0.1f;
 		} else {
-			this.camera.current_zoom += 10;
+			this.camera.current_zoom += 0.1f;
 		}
 	}
 
-    @Override
+
+    	@Override
 	public void mousePressed( MouseEvent e ) {
-        int x = e.getX( );
+		int x = e.getX( );
 		int y = e.getY( );
 
-        if ( e.getButton( ) == MouseEvent.BUTTON3 ) {
+		if ( e.getButton( ) == MouseEvent.BUTTON3 ) {
 			button3 = true;
 		}
 
 		if( e.getButton( ) == MouseEvent.BUTTON1 ) {
-	    int mod_x = x - this.camera.pos_x;
-			int mod_y = y - this.camera.pos_y;
+			int mod_x = x + this.camera.pos_x;
+			int mod_y = y + this.camera.pos_y;
 			this.board.add_anchor( mod_x, mod_y );
 		}
 	}
@@ -53,9 +54,9 @@ public class Mouse_Adapter extends MouseAdapter  {
 	@Override
 	public void mouseDragged( MouseEvent e ) {
 		if ( button3 ) {
-            if ( ( start_x == 0 ) && ( start_y == 0 ) ) {
-                cam_x = this.camera.pos_x;
-                cam_y = this.camera.pos_y;
+			if ( ( start_x == 0 ) && ( start_y == 0 ) ) {
+				cam_x = this.camera.pos_x;
+				cam_y = this.camera.pos_y;
 				start_x = e.getX( );
 				start_y = e.getY( );
 			}
