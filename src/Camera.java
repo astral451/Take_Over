@@ -44,11 +44,11 @@ public class Camera extends JPanel implements  Runnable {
 
 		pos_x = pos_x - this.pos_x;
 		pos_y = pos_y - this.pos_y;
-		float scaled_pos_x = pos_x * (float)pos_x;
-		float scaled_pos_y = pos_y * (float)pos_y;
+		float scaled_pos_x = pos_x * this.current_zoom;
+		float scaled_pos_y = pos_y * this.current_zoom;
 		float scaled_size_x = this.current_zoom * (float)size_x;
 		float scaled_size_y = this.current_zoom * (float)size_y;
-
+		System.out.println( "pos_x " + scaled_pos_x + " pos_y " +  scaled_pos_y );
 		Image_Transform im_trans = new Image_Transform( 
 			(int)scaled_pos_x, 
 			(int)scaled_pos_y, 
