@@ -65,7 +65,7 @@ public class Board  {
 
 		Image_Transform image_trans = cam.transform_image( 0, 0, this.ground_x, this.ground_y );
 
-		System.out.println( "pos_x " + image_trans.pos_x  + " pos_y " + image_trans.pos_y );
+//		System.out.println( "pos_x " + image_trans.pos_x  + " pos_y " + image_trans.pos_y );
 		g2d.drawImage(
 				this.ground.get_image( ),
 				image_trans.pos_x, // pos x

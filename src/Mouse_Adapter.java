@@ -26,10 +26,10 @@ public class Mouse_Adapter extends MouseAdapter  {
 
 	@Override
 	public void mouseWheelMoved( MouseWheelEvent e ) {
-		if ( e.getWheelRotation( ) < 0 ) {
-			this.camera.current_zoom -= 0.1f;
+		if ( e.getWheelRotation( ) >= 0 ) {
+			this.camera.current_zoom -= 0.25f;
 		} else {
-			this.camera.current_zoom += 0.1f;
+			this.camera.current_zoom += 0.25f;
 		}
 	}
 

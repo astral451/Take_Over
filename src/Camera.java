@@ -48,8 +48,9 @@ public class Camera extends JPanel implements  Runnable {
 		float scaled_pos_y = pos_y * this.current_zoom;
 		float scaled_size_x = this.current_zoom * (float)size_x;
 		float scaled_size_y = this.current_zoom * (float)size_y;
-		System.out.println( "pos_x " + scaled_pos_x + " pos_y " +  scaled_pos_y );
-		Image_Transform im_trans = new Image_Transform( 
+
+//		System.out.println( String.format( "pos_x %f, pos_y %f",  scaled_pos_x, scaled_pos_y ) );
+		Image_Transform im_trans = new Image_Transform(
 			(int)scaled_pos_x, 
 			(int)scaled_pos_y, 
 			(int)scaled_size_x, 
@@ -119,16 +120,21 @@ public class Camera extends JPanel implements  Runnable {
 		Graphics2D g2d = ( Graphics2D ) g;
 		Color temp_color = g2d.getColor();
 		g2d.setColor( Color.GRAY );
-		g2d.fill3DRect(5, 0, 200, 20, true ); // (10, 10, 100, 25 );
-		g2d.fill3DRect( 5, 22, 20, 42, true );
+		g2d.fill3DRect(5, 0, 200, 60, true ); // (10, 10, 100, 25 );
+//		g2d.fill3DRect( 5, 22, 20, 42, true );
 		g2d.setColor( Color.WHITE );
 		
 		// camera Position
 		g2d.drawString( Integer.toString( this.pos_x ), 15, 15 );
-		g2d.drawString( Integer.toString( this.pos_x ), 45, 15 );
-		
+		g2d.drawString( Integer.toString( this.pos_y ), 45, 15 );
+
+		//transform calculation
+		Image_Transform im_trans = this.transform_image( this.pos_x, this.pos_y, 0, 0 );
+		g2d.drawString( Float.toString( im_trans.pos_x ), 15, 30 );
+		g2d.drawString( Float.toString( im_trans.pos_y ), 45, 30 );
+
 		// Zoom
-		g2d.drawString( Float.toString( this.current_zoom ), 15, 25 );
+		g2d.drawString( Float.toString( this.current_zoom ), 15, 45 );
 		g2d.setColor( temp_color );
 	}
 
