@@ -30,7 +30,7 @@ public class Ground {
 			ground_image = ImageIO.read( _infile );
 		}
 		catch ( IOException e ) { };
-			return ground_image;
+		return ground_image;
 	}
 
 
