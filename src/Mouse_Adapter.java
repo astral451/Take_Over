@@ -21,6 +21,10 @@ public class Mouse_Adapter extends MouseAdapter  {
 	public Mouse_Adapter( Camera camera, Board board ) {
 		this.board = board;
 		this.camera = camera;
+		this.cam_x = camera.initial_pos_x;
+		this.cam_y = camera.initial_pos_y;
+		this.start_x = this.cam_x;
+		this.start_y = this.cam_y;
 	}
 
 
@@ -44,9 +48,12 @@ public class Mouse_Adapter extends MouseAdapter  {
 		}
 
 		if( e.getButton( ) == MouseEvent.BUTTON1 ) {
-			int mod_x = x + this.camera.pos_x;
-			int mod_y = y + this.camera.pos_y;
-			this.board.add_anchor( mod_x, mod_y );
+//			int mod_x = x + this.camera.pos_x;
+//			int mod_y = y + this.camera.pos_y;
+
+			Image_Transform im_trans = this.camera.transform_image( x, y, 0, 0 );
+			this.board.add_anchor( im_trans.pos_x, im_trans.pos_y );
+
 		}
 	}
 

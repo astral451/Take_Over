@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class Anchor extends Base_Object {
 
 	private JPanel panel;
-	private String base_icon_name = "image\\VG_Circle.png";
+	private String base_icon_name = "src\\image\\VG_Circle.png";
 
 	// create icons maybe for each other color
 	private ImageIcon image_icon;

@@ -16,10 +16,10 @@ public class Camera extends JPanel implements  Runnable {
 	private Board board;
 
 	float current_zoom = 1.0f ;
-	int initial_pos_x = 0;
-	int initial_pos_y = 0;
-	int pos_x;
-	int pos_y;
+	int initial_pos_x = (int)frame_width / 2;
+	int initial_pos_y = (int)frame_height / 2;
+	int pos_x = initial_pos_x;
+	int pos_y = initial_pos_y;
 
 	Dimension window_size = new Dimension( this.frame_width, this.frame_height );
 

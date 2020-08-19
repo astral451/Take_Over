@@ -44,7 +44,7 @@ public class Board  {
 
 		this.ground_x = 1024;
 		this.ground_y = 1024;
-		this.ground = new Ground( this.ground_x, this.ground_y, "src\\image\\test_ground.jpg" );
+		this.ground = new Ground( this.ground_x, this.ground_y, "image\\grid_ground.jpg" );
 		this.top_panel = top_panel;
 
 		this.circles = new ArrayList<Circle>( );
