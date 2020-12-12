@@ -9,8 +9,8 @@ public class Camera extends JPanel implements  Runnable {
 
 	long current_time;
 
-	private int frame_width = 800;
-	private int frame_height = 600;
+	private int frame_width 	= 400;
+	private int frame_height 	= 400;
 	
 	private Mouse_Adapter mouse_adapter;
 	private Board board;
@@ -35,9 +35,40 @@ public class Camera extends JPanel implements  Runnable {
 		// These are the Mouse Listeners ( and Camera is the starting point )
 		mouse_adapter = new Mouse_Adapter( this, this.board );
 		addMouseListener( this.mouse_adapter );
-		addMouseWheelListener( this.mouse_adapter );
+//		addMouseWheelListener( this.mouse_adapter );
 		addMouseMotionListener( this.mouse_adapter );
 
+	}
+
+	public Image_Transform screen_to_world( int pos_x, int pos_y ) {
+		int _pos_x;
+		int _pos_y;
+		_pos_x = pos_x + this.pos_x;
+		_pos_y = pos_y + this.pos_y;
+		Image_Transform im_trans = new Image_Transform(
+				( int )_pos_x,
+				( int )_pos_y,
+                1,
+				1
+		);
+
+		return im_trans;
+	}
+
+	public Image_Transform world_to_screen( int pos_x, int pos_y ) {
+		int _pos_x;
+		int _pos_y;
+		_pos_x = pos_x - this.pos_x;
+		_pos_y = pos_y - this.pos_y;
+
+		Image_Transform im_trans = new Image_Transform(
+				( int ) _pos_x,
+                ( int )	_pos_y,
+                1,
+				1
+		);
+
+		return im_trans;
 	}
 
 	public Image_Transform transform_image( int pos_x, int pos_y, int size_x, int size_y ) {
@@ -129,7 +160,7 @@ public class Camera extends JPanel implements  Runnable {
 		g2d.drawString( Integer.toString( this.pos_y ), 45, 15 );
 
 		//transform calculation
-		Image_Transform im_trans = this.transform_image( this.pos_x, this.pos_y, 0, 0 );
+		Image_Transform im_trans = this.screen_to_world( this.pos_x, this.pos_y );
 		g2d.drawString( Float.toString( im_trans.pos_x ), 15, 30 );
 		g2d.drawString( Float.toString( im_trans.pos_y ), 45, 30 );
 

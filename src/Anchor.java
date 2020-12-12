@@ -60,7 +60,10 @@ public class Anchor extends Base_Object {
 				im_trans.size_y,
 				this.panel
 		);
+
 		g2d.drawString( String.format( "x %d, y %d",  point.x, point.y ), im_trans.pos_x, im_trans.pos_y );
+		Image_Transform sc_trans = cam.world_to_screen( point.x, point.y );
+		g2d.drawString( String.format( "sx %d, y %d", sc_trans.pos_x, sc_trans.pos_y  ), sc_trans.pos_x, sc_trans.pos_y + 30 );
 	}
 	
 

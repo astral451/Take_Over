@@ -51,7 +51,7 @@ public class Mouse_Adapter extends MouseAdapter  {
 //			int mod_x = x + this.camera.pos_x;
 //			int mod_y = y + this.camera.pos_y;
 
-			Image_Transform im_trans = this.camera.transform_image( x, y, 0, 0 );
+			Image_Transform im_trans = this.camera.screen_to_world( x, y );
 			this.board.add_anchor( im_trans.pos_x, im_trans.pos_y );
 
 		}
