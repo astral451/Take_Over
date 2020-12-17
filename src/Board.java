@@ -44,7 +44,8 @@ public class Board  {
 
 		this.ground_x = 1024;
 		this.ground_y = 1024;
-		this.ground = new Ground( this.ground_x, this.ground_y, "image\\test_ground.jpg" );
+		String ground_path = this.dir + "\\image\\test_ground.jpg";
+		this.ground = new Ground( this.ground_x, this.ground_y, ground_path );
 		this.top_panel = top_panel;
 
 		this.circles = new ArrayList<Circle>( );
@@ -64,7 +65,7 @@ public class Board  {
 		Graphics2D g2d = ( Graphics2D ) g;
 
 //		Image_Transform image_trans = cam.transform_image( 0, 0, this.ground_x, this.ground_y );
-		Image_Transform image_trans = cam.world_to_screen( 0, 0, this.ground_x, this.ground_y );
+		Image_Transform image_trans = cam.world_to_screen( 0, 0 );
 
 //		System.out.println( "pos_x " + image_trans.pos_x  + " pos_y " + image_trans.pos_y );
 		g2d.drawImage(

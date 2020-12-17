@@ -46,10 +46,10 @@ public class Camera extends JPanel implements  Runnable {
 		_pos_x = pos_x + this.pos_x;
 		_pos_y = pos_y + this.pos_y;
 		Image_Transform im_trans = new Image_Transform(
-				( int )_pos_x,
-				( int )_pos_y,
-                1,
-				1
+			( int )_pos_x,
+			( int )_pos_y,
+                	1,
+			1
 		);
 
 		return im_trans;
@@ -62,10 +62,10 @@ public class Camera extends JPanel implements  Runnable {
 		_pos_y = pos_y - this.pos_y;
 
 		Image_Transform im_trans = new Image_Transform(
-				( int ) _pos_x,
-                ( int )	_pos_y,
-                1,
-				1
+			( int ) _pos_x,
+	                ( int )	_pos_y,
+                	1,
+			1
 		);
 
 		return im_trans;
@@ -93,8 +93,8 @@ public class Camera extends JPanel implements  Runnable {
 
 	public void set_drag_delta( int x, int y ) {
 	    if( initial_pos_x == 0 ) {
-	    	initial_pos_x = pos_x;
-	    	initial_pos_y = pos_y;
+			initial_pos_x = pos_x;
+			initial_pos_y = pos_y;
 		}
 		pos_x = initial_pos_x - x;
 		pos_y = initial_pos_y - y;
