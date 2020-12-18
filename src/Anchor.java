@@ -4,10 +4,7 @@
  *
  */
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Image;
+import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -41,6 +38,7 @@ public class Anchor extends Base_Object {
 
 	public void draw_anchor( Graphics g, Camera cam ) { //int zoom, int offset_x, int offset_y ) {
 		Graphics2D g2d = ( Graphics2D ) g;
+		g2d.setColor( Color.WHITE );
 		Point point = this.get_position( );
 		int w = this.image.getWidth( this.panel );
 		int h = this.image.getHeight( this.panel );

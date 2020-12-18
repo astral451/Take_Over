@@ -10,7 +10,7 @@ public class Ground {
 
 	private String image_path;
 
-	private BufferedImage ground_image;
+	private BufferedImage ground_image = null;
 	// These are in meters and are 'real world' scale
 	// and it relates directly to the image.  Even if
 	// the image is not exactly the right size, it will
@@ -25,11 +25,13 @@ public class Ground {
 	}
 
 	public Image get_image( ) {
-		File _infile = new File( this.image_path );
-		try {
-			ground_image = ImageIO.read( _infile );
+		//Image ground_image = null;
+		if ( ground_image == null ) {
+			File _infile = new File( this.image_path );
+			try {
+				ground_image = ImageIO.read( _infile );
+			} catch( IOException e ) { };
 		}
-		catch ( IOException e ) { };
 		return ground_image;
 	}
 

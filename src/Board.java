@@ -42,10 +42,9 @@ public class Board  {
 
 	public Board( java.awt.Color color, JPanel top_panel ) {
 
-		System.out.println( this.dir );
-		this.ground_x = 1024;
-		this.ground_y = 1024;
-		String ground_path = "\\image\\test_ground.jpg";
+		this.ground_x = 4096;
+		this.ground_y = 4096;
+		String ground_path = "image\\grid_ground.jpg";
 		this.ground = new Ground( this.ground_x, this.ground_y, ground_path );
 
 
@@ -75,8 +74,8 @@ public class Board  {
 				this.ground.get_image( ),
 				image_trans.pos_x, // pos x
 				image_trans.pos_y, // pos y
-				image_trans.size_x, //+ current_zoom,
-				image_trans.size_y, // + current_zoom,
+				//image_trans.size_x, //+ current_zoom,
+				//image_trans.size_y, // + current_zoom,
 				this.top_panel );
 
 	}
