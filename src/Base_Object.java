@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.lang.*;
 
 /**
  * Created by nathan on 8/6/17.
@@ -12,9 +13,6 @@ public class Base_Object {
      */
     public int pos_x;
     public int pos_y;
-
-    public String dir;
-    dir = java.lang.System.getProperty( "user.dir" );
 
 
     public Base_Object( int in_pos_x, int in_pos_y ) {

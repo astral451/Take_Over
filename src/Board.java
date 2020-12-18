@@ -42,10 +42,13 @@ public class Board  {
 
 	public Board( java.awt.Color color, JPanel top_panel ) {
 
+		System.out.println( this.dir );
 		this.ground_x = 1024;
 		this.ground_y = 1024;
-		String ground_path = this.dir + "\\image\\test_ground.jpg";
+		String ground_path = "\\image\\test_ground.jpg";
 		this.ground = new Ground( this.ground_x, this.ground_y, ground_path );
+
+
 		this.top_panel = top_panel;
 
 		this.circles = new ArrayList<Circle>( );
