@@ -56,7 +56,18 @@ public class Board  {
 	}
 	
 
-    public void draw_board( Graphics g, Camera cam ) { // int current_zoom, int pos_x, int pos_y ) {
+
+	public void add_anchor( int anchor_pos_x, int anchor_pos_y ) {
+		this.anchors.add( new Anchor( anchor_pos_x, anchor_pos_y, this.top_panel ) );
+	}
+
+
+	public void add_circle( int circle_pos_x, int circle_pos_y ) {
+    		this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
+	}
+
+
+	public void draw_board( Graphics g, Camera cam ) { // int current_zoom, int pos_x, int pos_y ) {
 		draw_ground( g, cam );//, current_zoom, pos_x, pos_y );
 		draw_anchors( g, cam );
 //		draw_circles( g );
@@ -66,10 +77,8 @@ public class Board  {
 	public void draw_ground( Graphics g, Camera cam ) {// int current_zoom, int camera_pos_x, int camera_pos_y ) {
 		Graphics2D g2d = ( Graphics2D ) g;
 
-//		Image_Transform image_trans = cam.transform_image( 0, 0, this.ground_x, this.ground_y );
 		Image_Transform image_trans = cam.world_to_screen( 0, 0 );
 
-//		System.out.println( "pos_x " + image_trans.pos_x  + " pos_y " + image_trans.pos_y );
 		g2d.drawImage(
 				this.ground.get_image( ),
 				image_trans.pos_x, // pos x
@@ -97,49 +106,47 @@ public class Board  {
 	}
 
 
-	public void add_anchor( int anchor_pos_x, int anchor_pos_y ) {
-		this.anchors.add( new Anchor( anchor_pos_x, anchor_pos_y, this.top_panel ) );
+
+	public void draw_rain( ) {
+		// Random rain-drops
+		Integer mod_val = 200;
+		if( ( current_time  % mod_val ) == 0 ) {
+			if( 1 == 1 ) {
+				Integer circle_pos_x = get_random_int( 0, board_width );
+				Integer circle_pos_y = get_random_int( 0, board_height );
+				this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
+				mod_val = get_random_int( 0, 200 );
+				// never allow 0
+				while( mod_val == 0 ) {
+					mod_val = get_random_int( 0, 200 );
+				}
+			}
+		}
 	}
-
-
-	public void add_circle( int circle_pos_x, int circle_pos_y ) {
-    		this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
-	}
-
-
-
 
 	public void draw_circles( ) {
 
-//         Random rain-drops
-//			if( ( current_time  % mod_val ) == 0 ) {
-//    			if( 1 == 1 ) {
-//				Integer circle_pos_x = get_random_int( 0, board_width );
-//				Integer circle_pos_y = get_random_int( 0, board_height );
-//				this.circles.add( new Circle( circle_pos_x, circle_pos_y ) );
-//				mod_val = get_random_int( 0, 200 );
-//				// never allow 0
-//				while( mod_val == 0 ) {
-//					mod_val = get_random_int( 0, 200 );
-//				}
-//			}
-
-        if( this.circles != null  &&  this.circles.size( ) > 0 ) {
-            for( Circle c : circles ) {
-                if ( c.visible( ) ) {
-                    c.grow();
-                }
-            }
-        }
+		if( this.circles != null  &&  this.circles.size( ) > 0 ) {
+		    for( Circle c : circles ) {
+			if ( c.visible( ) ) {
+			    c.grow();
+			}
+		    }
+		}
 
 
-        // remove any non-visible circles
-//			ArrayList<Integer> idx_to_delete = new ArrayList<Integer>( );
-        for( int i = this.circles.size( ) -1; i == 0; i-- ) {
-            Circle circle = this.circles.get( i );
-            if( !circle.visible( ) ) {
-                this.circles.remove( i );
-            }
-        }
+		// remove any non-visible circles
+	//			ArrayList<Integer> idx_to_delete = new ArrayList<Integer>( );
+		for( int i = this.circles.size( ) -1; i == 0; i-- ) {
+		    Circle circle = this.circles.get( i );
+		    if( !circle.visible( ) ) {
+			this.circles.remove( i );
+		    }
+		}
+	}
+
+	private Integer get_random_int( Integer min, Integer max ) {
+		Integer delta = max - min;		
+		return (int) Math.round( ( Math.random( ) * delta ) );
 	}
 }
